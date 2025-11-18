@@ -4,6 +4,7 @@
  */
 package com.mycompany.trabalholp3.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,12 +12,20 @@ import java.util.List;
  * @author Thaison
  */
 public class Cliente {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    
     private String nome;
     private String email;
     private String telefone;  
-    private List<Ingresso> ingressos;
+    
+    @OneToMany(mappedBy = "cliente")
+    private List<Ingresso> ingressos = new ArrayList<>();
+    
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
     private CartaoFidelidade cartaoFidelidade;
     
     public Cliente(){}

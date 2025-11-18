@@ -10,11 +10,19 @@ package com.mycompany.trabalholp3.model;
  */
 public class Ingresso {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
     private String codigo;
     private Double valor;
-    private Sessao sessao;
+
+    @ManyToOne    
+    private Sessao sessao; 
+ 
+    @ManyToOne
     private Cliente cliente;
+
+    @OneToOne
     private Assento assento;
     
     public Ingresso(){}

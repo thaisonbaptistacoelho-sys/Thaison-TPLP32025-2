@@ -9,10 +9,15 @@ package com.mycompany.trabalholp3.model;
  * @author Thaison
  */
 public class CartaoFidelidade {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
     private Integer pontos;
     private String nivel;
+
+    @OneToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
     
     public CartaoFidelidade(){}

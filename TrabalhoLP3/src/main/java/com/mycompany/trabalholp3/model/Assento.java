@@ -4,15 +4,20 @@
  */
 package com.mycompany.trabalholp3.model;
 
+
 /**
  *
  * @author Thaison
  */
 public class Assento {
-   
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String numero;
     private boolean disponivel;
+    
+    @ManyToOne
     private Sala sala;
     
     public Assento(){}

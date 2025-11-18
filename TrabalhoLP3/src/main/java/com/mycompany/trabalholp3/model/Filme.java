@@ -4,6 +4,7 @@
  */
 package com.mycompany.trabalholp3.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,13 +12,17 @@ import java.util.List;
  * @author Thaison
  */
 public class Filme {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
     private String titulo;
     private String genero;
     private Integer duracaoMinutos;
     private String classificacao;
-    private List<Sessao> sessoes;
+    
+    @OneToMany(mappedBy = "filme")
+    private List<Sessao> sessoes = new ArrayList<>();
     
     public Filme(){}
     

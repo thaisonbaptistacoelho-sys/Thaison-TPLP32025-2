@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.trabalholp3.model;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,11 +12,18 @@ import java.util.List;
  */
 public class Sala {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String nome;
     private Integer capacidade; 
-    private List<Assento> assentos;
-    private List<Sessao> sessoes;
+    
+    @OneToOne(mappedBy = "sala", cascade = CascadeType.ALLL, orphanRemoval = true)
+    private List<Assento> assentos = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "sala")
+    private List<Sessao> sessoes = new ArrayList<>();
     
     public Sala(){}
     

@@ -5,6 +5,7 @@
 package com.mycompany.trabalholp3.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,12 +13,21 @@ import java.util.List;
  * @author Thaison
  */
 public class Sessao {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
+    
     private LocalDateTime horario;
+    
+    @ManyToOne
     private Filme filme;
+    
+    @ManyToOne
     private Sala sala;
-    private List<Ingresso> ingressos;
+    
+    @OneToMany(mappedBy = "sessao") 
+    private List<Ingresso> ingressos = new ArrayList<>();
     
     public Long getId() {
         return id;
