@@ -7,28 +7,38 @@ package com.mycompany.trabalholp3.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author Thaison
  */
+@Entity
 public class Sessao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private LocalDateTime horario;
-    
-    @ManyToOne
+
+    @ManyToOne()
+    @JoinColumn(name = "filme_id")
     private Filme filme;
-    
-    @ManyToOne
+
+    @ManyToOne()
+    @JoinColumn(name = "sala_id")
     private Sala sala;
-    
-    @OneToMany(mappedBy = "sessao") 
-    private List<Ingresso> ingressos = new ArrayList<>();
-    
+
+    @OneToMany(mappedBy = "sessao")
+    private List<Ingresso> ingressos;
+
     public Long getId() {
         return id;
     }
@@ -68,5 +78,31 @@ public class Sessao {
     public void setIngressos(List<Ingresso> ingressos) {
         this.ingressos = ingressos;
     }
+    
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object object) {
+                if (!(object instanceof Sessao)) {
+            return false;
+        }
+        Sessao other = (Sessao) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.mycompany.trabalholp3.model[ id=" + id + " ]";
+    }
 }
+   

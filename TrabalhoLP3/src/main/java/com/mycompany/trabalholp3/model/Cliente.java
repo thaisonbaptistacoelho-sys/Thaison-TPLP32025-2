@@ -6,30 +6,38 @@ package com.mycompany.trabalholp3.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author Thaison
  */
+@Entity
 public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    
+
     private String nome;
+
     private String email;
-    private String telefone;  
-    
-    @OneToMany(mappedBy = "cliente")
-    private List<Ingresso> ingressos = new ArrayList<>();
-    
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+
+    private String telefone;
+
+  
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ingresso> ingressos;
+
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private CartaoFidelidade cartaoFidelidade;
-    
-    public Cliente(){}
-    
+
     public Long getId() {
         return id;
     }
@@ -78,4 +86,30 @@ public class Cliente {
         this.cartaoFidelidade = cartaoFidelidade;
     }
     
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) 
+        if (!(object instanceof Cliente)) {
+            return false;
+        }
+        Cliente other = (Cliente) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.mycompany.trabalholp3.model[ id=" + id + " ]";
+    }
 }
+
